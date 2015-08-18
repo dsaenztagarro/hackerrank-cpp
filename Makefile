@@ -11,13 +11,10 @@ INCLUDES=-I /usr/include -I include
 
 COMPILE.c = $(CC) $(CFLAGS) $(INCLUDES) $(CPPFLAGS) $(TARGET_ARCH) -c
 
-main: main.c
-	$(CC) $< -o $(BIN_PATH)/$@
+main: main.c graph.o
+	$(CC) $(CFLAGS) $(INCLUDES) $(CPPFLAGS) $(TARGET_ARCH) $< -o $(BIN_PATH)/$@
 
 graph.o: graph.c graph.h
-	$(COMPILE.c) $< $(OUTPUT_OPTION)
-
-graph.o: graph.h
 	$(COMPILE.c) $< $(OUTPUT_OPTION)
 
 test: test.o clean

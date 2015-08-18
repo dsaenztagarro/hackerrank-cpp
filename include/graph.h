@@ -19,4 +19,7 @@ typedef struct {
   bool directed;
 } graph;
 
+void initialize_graph(graph *g, bool directed);
+
+
 #endif
