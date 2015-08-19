@@ -1,31 +1,32 @@
 vpath %.c src
 vpath %.h include
 vpath %.o build
-BIN_PATH=./bin
-BUILD_PATH=./build
+
+SOURCE_DIR := src
+OUTPUT_DIR := build
+
+OUTPUT_OPTION = -o $(OUTPUT_DIR)/$@
 
 CC=cc
-OUTPUT_OPTION = -o $(BUILD_PATH)/$@
-CFLAGS=-std=c99 -Wall -Wextra -Werror -ansi --pedantic
+# General compiler flags
+COMPILE_FLAGS = -std=c99 -Wall -Wextra -g
+
+CFLAGS = $(COMPILE_FLAGS) -ansi --pedantic
+
 INCLUDES=-I /usr/include -I include
 
-COMPILE.c = $(CC) $(CFLAGS) $(INCLUDES) $(CPPFLAGS) $(TARGET_ARCH) -c
+COMPILE.c = $(CC) $(CFLAGS) $(INCLUDES) -c
 
 main: main.o graph.o
-	$(CC) main.o graph.o $< -o $(BIN_PATH)/$@
+	$(CC) $(COMPILE_FLAGS) $(INCLUDES) build/main.o build/graph.o -o bin/$@
 
 main.o: main.c graph.o
-	$(CC) graph.o $(OUTPUT_OPTION)
+	$(COMPILE.c) $< $(OUTPUT_OPTION)
 
 graph.o: graph.c graph.h
 	$(COMPILE.c) $< $(OUTPUT_OPTION)
 
-test: test.o clean
-	$(CC) $(CFLAGS) $< $(OUTPUT_OPTION) $(LDFLAGS)
-
-test.o: test.c
-	$(COMPILE.c) $<
-
+.PHONY: clean
 clean:
 	mkdir -p bin && rm -rf bin/*
 	mkdir -p build && rm -rf build/*

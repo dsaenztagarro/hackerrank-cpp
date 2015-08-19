@@ -1,11 +1,13 @@
 #include<stdio.h>
 #include "graph.h"
 
-graph *g;
+graph *gPtr;
 
 int main()
 {
+    graph g;
+    gPtr = &g;
     printf("Hello World");
-    initialize_graph(g, false);
+    initialize_graph(gPtr, false);
 		return 0;
 }
