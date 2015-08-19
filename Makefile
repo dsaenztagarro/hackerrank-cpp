@@ -6,7 +6,8 @@ SOURCE_DIR := src
 OUTPUT_DIR := build
 
 SOURCES = $(shell find $(SOURCE_DIR)/ -name *.c | sed 's/src\/\///')
-OBJECTS = $(subst .c,.o, $(SOURCES))
+DEPENDENCIES = $(subst .c,.o, $(SOURCES))
+OBJECTS = $(addprefix $(OUTPUT_DIR)/, $(DEPENDENCIES))
 
 OUTPUT_OPTION = -o $(OUTPUT_DIR)/$@
 
@@ -20,8 +21,8 @@ INCLUDES=-I /usr/include -I include
 
 COMPILE.c = $(CC) $(CFLAGS) $(INCLUDES) -c
 
-main: $(OBJECTS)
-	$(CC) $(COMPILE_FLAGS) $(INCLUDES) build/main.o build/graph.o -o bin/$@
+main: $(DEPENDENCIES)
+	$(CC) $(COMPILE_FLAGS) $(INCLUDES) $(OBJECTS) -o bin/$@
 
 main.o: main.c graph.o
 	$(COMPILE.c) $< $(OUTPUT_OPTION)
