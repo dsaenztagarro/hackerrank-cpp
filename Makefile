@@ -12,17 +12,18 @@ OBJECTS = $(addprefix $(OUTPUT_DIR)/, $(DEPENDENCIES))
 OUTPUT_OPTION = -o $(OUTPUT_DIR)/$@
 
 CC=cc
-# General compiler flags
-COMPILE_FLAGS = -std=c99 -Wall -Wextra -g
 
-CFLAGS = $(COMPILE_FLAGS) -ansi --pedantic
+COMPILE_FLAGS = -std=c99 -Wall -Wextra -g
+LANGUAGE_FLAGS = -ansi --pedantic
+CFLAGS = $(COMPILE_FLAGS) $(LANGUAGE_FLAGS)
 
 INCLUDES=-I /usr/include -I include
 
+LINK.o = $(CC) $(COMPILE_FLAGS) $(INCLUDES)
 COMPILE.c = $(CC) $(CFLAGS) $(INCLUDES) -c
 
 main: $(DEPENDENCIES)
-	$(CC) $(COMPILE_FLAGS) $(INCLUDES) $(OBJECTS) -o bin/$@
+	$(LINK.o) $(OBJECTS) -o bin/$@
 
 main.o: main.c graph.o
 	$(COMPILE.c) $< $(OUTPUT_OPTION)
