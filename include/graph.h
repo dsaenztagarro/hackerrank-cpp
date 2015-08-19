@@ -7,8 +7,8 @@
 
 typedef struct {
   int y; /* adjacency info */
-  int weight; /* edje weight, if any */
-  struct edgenode *next;
+  int weight; /* edge weight, if any */
+  struct edgenode *next; /* next edge in list */
 } edgenode;
 
 typedef struct {
@@ -20,6 +20,6 @@ typedef struct {
 } graph;
 
 void initialize_graph(graph *g, bool directed);
-
+void read_graph(graph *g, bool directed);
 
 #endif
