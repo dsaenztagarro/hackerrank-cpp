@@ -57,7 +57,7 @@ flags = [
     # harmful
     '-isystem', '/System/Library/Frameworks/Python.framework/Headers',
     '-isystem', '/usr/include',
-    '-I./include'
+    '-I', 'include',
     '-I.'
 ]
 
