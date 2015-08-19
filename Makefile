@@ -23,7 +23,7 @@ main: main.o graph.o
 main.o: main.c graph.o
 	$(COMPILE.c) $< $(OUTPUT_OPTION)
 
-graph.o: graph.c graph.h
+graph.o: graph.c
 	$(COMPILE.c) $< $(OUTPUT_OPTION)
 
 .PHONY: clean
