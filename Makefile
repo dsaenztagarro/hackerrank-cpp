@@ -5,6 +5,9 @@ vpath %.o build
 SOURCE_DIR := src
 OUTPUT_DIR := build
 
+SOURCES = $(shell find $(SOURCE_DIR)/ -name *.c | sed 's/src\/\///')
+OBJECTS = $(subst .c,.o, $(SOURCES))
+
 OUTPUT_OPTION = -o $(OUTPUT_DIR)/$@
 
 CC=cc
@@ -17,7 +20,7 @@ INCLUDES=-I /usr/include -I include
 
 COMPILE.c = $(CC) $(CFLAGS) $(INCLUDES) -c
 
-main: main.o graph.o
+main: $(OBJECTS)
 	$(CC) $(COMPILE_FLAGS) $(INCLUDES) build/main.o build/graph.o -o bin/$@
 
 main.o: main.c graph.o
@@ -30,3 +33,8 @@ graph.o: graph.c
 clean:
 	mkdir -p bin && rm -rf bin/*
 	mkdir -p build && rm -rf build/*
+
+.PHONY: echo
+echo:
+	$(info $(SOURCES))
+	$(info $(OBJECTS))
