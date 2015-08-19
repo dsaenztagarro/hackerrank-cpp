@@ -1,3 +1,9 @@
+# hackerrank-cpp
+
+To show the script to be executed
+
+`make --just-print`
+
 Documentation
 -------------
 
