@@ -47,8 +47,8 @@ void insert_edge(graph *graph, int x, int y, bool directed)
   graph->edges[x] = node;
   graph->degree[x] ++;
 
-  if (directed == FALSE)
-    insert_edge(graph, y, x, TRUE);
+  if (directed == false)
+    insert_edge(graph, y, x, true);
   else
     graph->nedges ++;
 }
