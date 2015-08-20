@@ -21,6 +21,7 @@ void initialize_graph(graph *g, bool directed)
 
 void read_graph(graph *graph, bool directed)
 {
+  int i; /* counter */
   int nedges;
   int x, y; /* vertices in edge (x, y) */
 
@@ -28,7 +29,7 @@ void read_graph(graph *graph, bool directed)
 
   scanf("%d %d",&(graph->nvertices), &nedges);
 
-  for (int i=1; i<nedges; i++) {
+  for (i=1; i<nedges; i++) {
     scanf("%d %d", &x, &y);
     insert_edge(graph, x, y, directed);
   }
@@ -55,9 +56,10 @@ void insert_edge(graph *graph, int x, int y, bool directed)
 
 void print_graph(graph* graph)
 {
+  int i; /* counter */
   edgenode *node;
 
-  for (int i=1; i<=graph->nvertices; i++)
+  for (i=1; i<=graph->nvertices; i++)
   {
     printf("%d: ", i);
     node = graph->edges[i];
