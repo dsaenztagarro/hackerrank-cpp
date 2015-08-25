@@ -29,7 +29,7 @@ void read_graph(graph *graph, bool directed)
 
   scanf("%d %d",&(graph->nvertices), &nedges);
 
-  for (i=1; i<nedges; i++) {
+  for (i=1; i<=nedges; i++) {
     scanf("%d %d", &x, &y);
     insert_edge(graph, x, y, directed);
   }
@@ -41,7 +41,7 @@ void insert_edge(graph *graph, int x, int y, bool directed)
 
   node = malloc(sizeof(edgenode));
 
-  node->weight = NULL;
+  node->weight = 0;
   node->y = y;
   node->next = graph->edges[x];
 

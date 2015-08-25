@@ -5,7 +5,7 @@
 
 #define MAXV 1000 /* Maximum number of nodes */
 
-typedef struct {
+typedef struct edgenode {
   int y; /* adjacency info */
   int weight; /* edge weight, if any */
   struct edgenode *next; /* next edge in list */
