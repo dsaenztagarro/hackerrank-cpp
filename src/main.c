@@ -21,7 +21,7 @@ void run_testcase()
 {
     int start_point;
     graph g;
-    graph_ptr = &g;
+    graph *graph_ptr = &g;
 
     initialize_graph(graph_ptr, false);
     initialize_search(graph_ptr);

@@ -11,6 +11,6 @@ typedef struct queue {
 void init_queue(queue *q);
 void enqueue(queue *q, int start);
 bool empty_queue(queue *q);
-queue dequeue(queue *q);
+int dequeue(queue *q);
 
 #endif

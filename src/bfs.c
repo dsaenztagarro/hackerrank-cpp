@@ -47,18 +47,20 @@ void bfs(graph *g, int start)
             }
             p = p->next;
         }
-        process_vertex_late(v);
+        /* process_vertex_late(v); */
     }
 }
 
 void process_vertex_early(int v)
 {
-    printf("processed edge (%d, %d)\n", x, y);
+    printf("processed edge %d\n", v);
 }
 
+/*
 void process_vertex_late(int v)
 {
 }
+*/
 
 void process_edge(int x, int y)
 {
