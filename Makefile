@@ -28,31 +28,28 @@ LINK.o = $(CC) $(COMPILE_FLAGS) $(INCLUDES)
 COMPILE.c = $(CC) $(CFLAGS) $(INCLUDES) -c
 
 main: app/main.o $(DEPS)
-	$(LINK.o) build/app/main.o $(OBJECTS) -o bin/$@
+	@$(LINK.o) build/app/main.o $(OBJECTS) -o bin/$@
 
 app/%.o: app/%.c graph.o
 	@mkdir -p $(shell dirname build/$<)
-	$(COMPILE.c) $< $(OUTPUT_OPTION)
+	@$(COMPILE.c) $< $(OUTPUT_OPTION)
 
 %.o: %.c
-	$(info $@)
-	$(info $<)
 	@mkdir -p $(shell dirname build/$<)
-	$(COMPILE.c) $< $(OUTPUT_OPTION)
+	@$(COMPILE.c) $< $(OUTPUT_OPTION)
 
 .PHONY: clean
 clean:
-	$(RM) bin/*
-	$(RM) build/*
+	@$(RM) bin/*
+	@$(RM) build/*
 
 .PHONY: check
 check: $(DEPS_TEST) $(DEPS)
-	$(info $(OBJECTS_TEST))
-	$(info $(DEPS_TEST))
-	# $(LINK.o) build/check_queue.o $(OBJECTS_TEST) -o bin/check_queue
+	@$(LINK.o) -lcheck build/check_queue.o $(OBJECTS_TEST) -o bin/check_queue
+	@./bin/check_queue
 
 check_queue.o: test/check_queue.c $(DEPS)
-	$(COMPILE.c) $< $(OUTPUT_OPTION)
+	@$(COMPILE.c) $< $(OUTPUT_OPTION)
 
 .PHONY: sources
 sources:
