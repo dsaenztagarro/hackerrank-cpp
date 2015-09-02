@@ -19,10 +19,15 @@ ERROR_COLOR=\033[31;01m
 
 AWK_CMD = awk '{ printf "%-30s %-10s\n",$$1, $$2; }'
 OK_STRING=$(OK_COLOR)[OK]$(NO_COLOR)
-PRINT_OK = printf "$@ $(OK_STRING)\n" | $(AWK_CMD)
+ERROR_STRING=$(ERROR_COLOR)[ERRORS]$(NO_COLOR)
 
 define log
-	@if [ $$? -eq 0 ]; then echo "$@ $(OK_STRING)" | $(AWK_CMD); fi;
+	@if [ $$? -eq 0 ]; \
+	then \
+		echo "$@ $(OK_STRING)" | $(AWK_CMD); \
+	else \
+		echo "$@ $(ERROR_STRING)" | $(AWK_CMD); \
+	fi;
 endef
 
 OUTPUT_OPTION = -o $(OUTPUT_DIR)/$@
@@ -40,9 +45,10 @@ TEST_INCLUDES = -lcheck
 LINK.o = $(CC) $(COMPILE_FLAGS) $(INCLUDES)
 COMPILE.c = $(CC) $(CFLAGS) $(INCLUDES) -c
 
-VAL = ''
+.PHONY: all
+all: compile check
 
-main: app/main.o $(DEPS)
+compile: app/main.o $(DEPS)
 	@$(LINK.o) build/app/main.o $(OBJECTS) -o bin/$@
 
 app/%.o: app/%.c graph.o
