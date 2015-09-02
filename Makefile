@@ -17,16 +17,26 @@ NO_COLOR=\033[0m
 OK_COLOR=\033[32;01m
 ERROR_COLOR=\033[31;01m
 
-AWK_CMD = awk '{ printf "%-30s %-10s\n",$$1, $$2; }'
+AWK_CMD = awk '{ printf "%s %-30s %-10s\n",$$1, $$2, $$3; }'
+AWK_ACTION_CMD = awk '{ printf "%-40s %-10s\n",$$1, $$2; }'
 OK_STRING=$(OK_COLOR)[OK]$(NO_COLOR)
 ERROR_STRING=$(ERROR_COLOR)[ERRORS]$(NO_COLOR)
 
-define log
+define log-compile
 	@if [ $$? -eq 0 ]; \
 	then \
-		echo "$@ $(OK_STRING)" | $(AWK_CMD); \
+		echo "Compiling $< $(OK_STRING)" | $(AWK_CMD); \
 	else \
-		echo "$@ $(ERROR_STRING)" | $(AWK_CMD); \
+		echo "Compiling $@ $(ERROR_STRING)" | $(AWK_CMD); \
+	fi;
+endef
+
+define log-action
+	@if [ $$? -eq 0 ]; \
+	then \
+		echo "$1 $(OK_STRING)" | $(AWK_ACTION_CMD); \
+	else \
+		echo "$1 $(ERROR_STRING)" | $(AWK_ACTION_CMD); \
 	fi;
 endef
 
@@ -50,20 +60,23 @@ all: compile check
 
 compile: app/main.o $(DEPS)
 	@$(LINK.o) build/app/main.o $(OBJECTS) -o bin/$@
+	$(call log-action, "Linking", "bin/main")
 
 app/%.o: app/%.c graph.o
 	@mkdir -p $(shell dirname build/$<)
 	@$(COMPILE.c) $< $(OUTPUT_OPTION)
+	$(call log-compile)
 
 %.o: %.c
 	@mkdir -p $(shell dirname build/$<)
 	@$(COMPILE.c) $< $(OUTPUT_OPTION)
-	$(call log)
+	$(call log-compile)
 
 .PHONY: clean
 clean:
 	@$(RM) bin/*
 	@$(RM) build/*
+	$(call log-action, "Cleaning")
 
 .PHONY: check
 check: $(DEPS_TEST) $(DEPS)
@@ -72,6 +85,7 @@ check: $(DEPS_TEST) $(DEPS)
 
 check_queue.o: test/check_queue.c $(DEPS)
 	@$(COMPILE.c) $< $(OUTPUT_OPTION)
+	$(call log-compile)
 
 .PHONY: sources
 sources:
