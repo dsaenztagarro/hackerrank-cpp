@@ -1,11 +1,22 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
+#include <stdlib.h>
 #include <stdbool.h>
 
+typedef struct list * Listptr;
+
+typedef struct list {
+    int item; /* data item */
+    Listptr next; /* point to successor */
+    Listptr previous; /* point to precessor */
+} list;
+
+typedef struct queue * Queueptr;
+
 typedef struct queue {
-        int item; /* data item */
-        struct queue *next; /* point to successor */
+        Listptr first; /* point to successor */
+        Listptr last; /* point to last item */
 } queue;
 
 void init_queue(queue *q);

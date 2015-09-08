@@ -2,6 +2,8 @@
 
 void init_queue(queue *q)
 {
+    q->first = NULL;
+    q->last = NULL;
 }
 
 void enqueue(queue *q, int start)
