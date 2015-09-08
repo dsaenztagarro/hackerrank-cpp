@@ -12,6 +12,17 @@ START_TEST(test_init_queue)
 }
 END_TEST
 
+START_TEST(test_enqueue_empty_queue)
+{
+        queue q;
+        queue *qptr;
+        qptr = &q;
+        init_queue(qptr);
+        enqueue(qptr, 5);
+        ck_assert_int_eq(qptr->first->item, 5);
+}
+END_TEST
+
 int main(void)
 {
         Suite *s1 = suite_create("Core");
@@ -21,6 +32,8 @@ int main(void)
 
         suite_add_tcase(s1, tc1_1);
         tcase_add_test(tc1_1, test_init_queue);
+        tcase_add_test(tc1_1, test_enqueue_empty_queue);
+        tcase_add_test(tc1_1, test_enqueue_non_empty_queue);
 
         srunner_run_all(sr, CK_ENV);
         nf = srunner_ntests_failed(sr);
