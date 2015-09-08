@@ -35,12 +35,8 @@ END_TEST
 
 START_TEST(test_enqueue_non_empty_queue)
 {
-        queue q;
-        queue *qptr;
-        qptr = &q;
-        init_queue(qptr);
-        enqueue(qptr, 5);
-        enqueue(qptr, 12);
+        int items[] = { 5, 12, 0 };
+        queue *qptr = init_queue_with(items);
         ck_assert_int_eq(qptr->first->item, 5);
         ck_assert_int_eq(qptr->last->item, 12);
 }
