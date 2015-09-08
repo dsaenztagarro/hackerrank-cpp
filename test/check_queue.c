@@ -10,7 +10,9 @@ Queueptr init_queue_with(int *items)
 {
         queue *qptr = queuealloc();
         init_queue(qptr);
-        // for (;*items; items++)
+        if (items)
+                for (; *items; items++)
+                        enqueue(qptr, *items);
         return qptr;
 }
 
@@ -24,11 +26,8 @@ END_TEST
 
 START_TEST(test_enqueue_empty_queue)
 {
-        queue q;
-        queue *qptr;
-        qptr = &q;
-        init_queue(qptr);
-        enqueue(qptr, 5);
+        int items[] = { 5, 0 };
+        queue *qptr = init_queue_with(items);
         ck_assert_int_eq(qptr->first->item, 5);
         ck_assert_int_eq(qptr->last->item, 5);
 }
