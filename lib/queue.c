@@ -12,11 +12,9 @@ void init_queue(queue *q)
 void enqueue(queue *q, int start)
 {
         Listptr l = create_itemlist(start);
-        if (q->first) {
-                Listptr head = q->first;
-                l->next = head;
-                head->previous = l;
-                q->first = l;
+        if (q->last) {
+                q->last->next = l;
+                q->last = l;
         } else {
                 q->first = l;
                 q->last = l;
@@ -43,6 +41,5 @@ Listptr create_itemlist(int item)
         Listptr l = listalloc();
         l->item = item;
         l->next = NULL;
-        l->previous = NULL;
         return l;
 }

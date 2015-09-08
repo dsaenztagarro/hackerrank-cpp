@@ -20,6 +20,20 @@ START_TEST(test_enqueue_empty_queue)
         init_queue(qptr);
         enqueue(qptr, 5);
         ck_assert_int_eq(qptr->first->item, 5);
+        ck_assert_int_eq(qptr->last->item, 5);
+}
+END_TEST
+
+START_TEST(test_enqueue_non_empty_queue)
+{
+        queue q;
+        queue *qptr;
+        qptr = &q;
+        init_queue(qptr);
+        enqueue(qptr, 5);
+        enqueue(qptr, 12);
+        ck_assert_int_eq(qptr->first->item, 5);
+        ck_assert_int_eq(qptr->last->item, 12);
 }
 END_TEST
 
