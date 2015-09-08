@@ -28,6 +28,7 @@ bool empty_queue(queue *q)
 
 int dequeue(queue *q)
 {
+        int item; /* item dequeued */
         Listptr head = q->first;
         if (head->next) {
                 q->first = head->next;
@@ -35,7 +36,7 @@ int dequeue(queue *q)
                 q->first = NULL;
                 q->last = NULL;
         }
-        int item = head->item;
+        item = head->item;
         free(head);
         return item;
 }
