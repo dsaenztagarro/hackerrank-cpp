@@ -1,12 +1,22 @@
 #include <check.h>
 #include "queue.h"
 
+Queueptr queuealloc(void)
+{
+        return (Queueptr)malloc(sizeof(queue));
+}
+
+Queueptr init_queue_with(int *items)
+{
+        queue *qptr = queuealloc();
+        init_queue(qptr);
+        // for (;*items; items++)
+        return qptr;
+}
+
 START_TEST(test_init_queue)
 {
-        queue q;
-        queue *qptr;
-        qptr = &q;
-        init_queue(qptr);
+        queue *qptr = init_queue_with(NULL);
         ck_assert_ptr_eq(qptr->first, NULL);
         ck_assert_ptr_eq(qptr->last, NULL);
 }
@@ -34,6 +44,12 @@ START_TEST(test_enqueue_non_empty_queue)
         enqueue(qptr, 12);
         ck_assert_int_eq(qptr->first->item, 5);
         ck_assert_int_eq(qptr->last->item, 12);
+}
+END_TEST
+
+START_TEST(test_dequeue)
+{
+
 }
 END_TEST
 
