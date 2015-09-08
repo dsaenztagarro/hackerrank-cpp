@@ -44,14 +44,18 @@ END_TEST
 
 START_TEST(test_dequeue)
 {
-
+        int items[] = { 5, 10, 15, 0 };
+        queue *qptr = init_queue_with(items);
+        ck_assert_int_eq(qptr->first->item, 5);
+        dequeue(qptr);
+        ck_assert_int_eq(qptr->first->item, 10);
 }
 END_TEST
 
 int main(void)
 {
         Suite *s1 = suite_create("Core");
-        TCase *tc1_1 = tcase_create("Core");
+        TCase *tc1_1 = tcase_create("Queue");
         SRunner *sr = srunner_create(s1);
         int nf;
 
@@ -59,6 +63,7 @@ int main(void)
         tcase_add_test(tc1_1, test_init_queue);
         tcase_add_test(tc1_1, test_enqueue_empty_queue);
         tcase_add_test(tc1_1, test_enqueue_non_empty_queue);
+        tcase_add_test(tc1_1, test_dequeue);
 
         srunner_run_all(sr, CK_ENV);
         nf = srunner_ntests_failed(sr);

@@ -28,7 +28,16 @@ bool empty_queue(queue *q)
 
 int dequeue(queue *q)
 {
-        return 0;
+        Listptr head = q->first;
+        if (head->next) {
+                q->first = head->next;
+        } else {
+                q->first = NULL;
+                q->last = NULL;
+        }
+        int item = head->item;
+        free(head);
+        return item;
 }
 
 Listptr listalloc(void)
