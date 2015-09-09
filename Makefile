@@ -12,7 +12,7 @@ SOURCES_TEST = $(shell find $(TEST_DIR) -name *.c)
 DEPS_TEST = $(subst .c,.o, $(SOURCES_TEST))
 OBJECTS_TEST=$(shell echo "$(OBJECTS)" | sed 's/$(OUTPUT_DIR)\/main\.o//')
 
-CHECK_FLAGS = $(shell pkg-config --cflags --libs check)
+TESTUNIT_FLAGS = $(shell pkg-config --cflags --libs cmockery2)
 
 # ANSI Escape codes
 NO_COLOR=\033[0m
@@ -79,9 +79,9 @@ clean:
 .PHONY: check
 check: $(DEPS_TEST) $(DEPS)
 	$(call log-action, "Checking")
-	$(LINK.o) $(CHECK_FLAGS) build/test/check_graph.o $(OBJECTS_TEST) -o bin/check_graph
+	$(LINK.o) $(TESTUNIT_FLAGS) build/test/check_graph.o $(OBJECTS_TEST) -o bin/check_graph
 	./bin/check_graph
-	@$(LINK.o) $(CHECK_FLAGS) build/test/check_queue.o $(OBJECTS_TEST) -o bin/check_queue
+	@$(LINK.o) $(TESTUNIT_FLAGS) build/test/check_queue.o $(OBJECTS_TEST) -o bin/check_queue
 	@./bin/check_queue
 
 .PHONY: sources
