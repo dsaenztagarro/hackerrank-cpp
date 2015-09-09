@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <check.h>
 #include "queue.h"
 
@@ -67,7 +68,13 @@ START_TEST(test_non_empty_queue)
 }
 END_TEST
 
-
+START_TEST(test_stdin)
+{
+       freopen("test/fixtures/test1.txt", "r", stdin);
+       char c = getchar();
+       ck_assert_int_eq(c, '1');
+}
+END_TEST
 
 int main(void)
 {
@@ -83,6 +90,7 @@ int main(void)
         tcase_add_test(tc1_1, test_dequeue);
         tcase_add_test(tc1_1, test_empty_queue);
         tcase_add_test(tc1_1, test_non_empty_queue);
+        tcase_add_test(tc1_1, test_stdin);
 
         srunner_run_all(sr, CK_ENV);
         nf = srunner_ntests_failed(sr);
