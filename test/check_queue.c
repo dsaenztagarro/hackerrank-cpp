@@ -68,29 +68,27 @@ START_TEST(test_non_empty_queue)
 }
 END_TEST
 
-START_TEST(test_stdin)
-{
-       freopen("test/fixtures/test1.txt", "r", stdin);
-       char c = getchar();
-       ck_assert_int_eq(c, '1');
-}
-END_TEST
-
 int main(void)
 {
-        Suite *s1 = suite_create("Core");
-        TCase *tc1_1 = tcase_create("Queue");
+        Suite *s1 = suite_create("Queue");
+        TCase *tc1_1 = tcase_create("queue#init_queue");
+        TCase *tc1_2 = tcase_create("queue#enqueue");
+        TCase *tc1_3 = tcase_create("queue#dequeue");
+        TCase *tc1_4 = tcase_create("queue#empty_queue");
         SRunner *sr = srunner_create(s1);
         int nf;
 
         suite_add_tcase(s1, tc1_1);
+        suite_add_tcase(s1, tc1_2);
+        suite_add_tcase(s1, tc1_3);
+        suite_add_tcase(s1, tc1_4);
+
         tcase_add_test(tc1_1, test_init_queue);
-        tcase_add_test(tc1_1, test_enqueue_empty_queue);
-        tcase_add_test(tc1_1, test_enqueue_non_empty_queue);
-        tcase_add_test(tc1_1, test_dequeue);
-        tcase_add_test(tc1_1, test_empty_queue);
-        tcase_add_test(tc1_1, test_non_empty_queue);
-        tcase_add_test(tc1_1, test_stdin);
+        tcase_add_test(tc1_2, test_enqueue_empty_queue);
+        tcase_add_test(tc1_2, test_enqueue_non_empty_queue);
+        tcase_add_test(tc1_3, test_dequeue);
+        tcase_add_test(tc1_4, test_empty_queue);
+        tcase_add_test(tc1_4, test_non_empty_queue);
 
         srunner_run_all(sr, CK_ENV);
         nf = srunner_ntests_failed(sr);

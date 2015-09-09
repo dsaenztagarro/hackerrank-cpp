@@ -1,5 +1,7 @@
 # hackerrank-cpp
 
+Run command: `./bin/compile < test/fixtures/test1.txt`
+
 To show the script to be executed
 
 `make --just-print`

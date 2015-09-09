@@ -80,10 +80,12 @@ clean:
 
 .PHONY: check
 check: $(DEPS_TEST) $(DEPS)
+	@$(LINK.o) -lcheck build/check_graph.o $(OBJECTS_TEST) -o bin/check_graph
+	@./bin/check_graph
 	@$(LINK.o) -lcheck build/check_queue.o $(OBJECTS_TEST) -o bin/check_queue
 	@./bin/check_queue
 
-check_queue.o: test/check_queue.c $(DEPS)
+check_%.o: test/check_%.c $(DEPS)
 	@$(COMPILE.c) $< $(OUTPUT_OPTION)
 	$(call log-compile)
 
