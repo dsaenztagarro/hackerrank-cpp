@@ -1,6 +1,6 @@
 language: c
 sudo: false
 install:
-  - sudo apt-get install check
+  - apt-get install check
 script:
   - make
