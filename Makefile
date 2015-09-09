@@ -12,7 +12,7 @@ SOURCES_TEST = $(shell find $(TEST_DIR) -name *.c)
 DEPS_TEST = $(subst .c,.o, $(SOURCES_TEST))
 OBJECTS_TEST=$(shell echo "$(OBJECTS)" | sed 's/$(OUTPUT_DIR)\/main\.o//')
 
-CHECK_LIB = $(shell pkg-config --cflags --libs check)
+CHECK_FLAGS = $(shell pkg-config --cflags --libs check)
 
 # ANSI Escape codes
 NO_COLOR=\033[0m
@@ -79,9 +79,9 @@ clean:
 .PHONY: check
 check: $(DEPS_TEST) $(DEPS)
 	$(call log-action, "Checking")
-	$(LINK.o) $(CHECK_LIB) build/test/check_graph.o $(OBJECTS_TEST) -o bin/check_graph
+	$(LINK.o) $(CHECK_FLAGS) build/test/check_graph.o $(OBJECTS_TEST) -o bin/check_graph
 	./bin/check_graph
-	@$(LINK.o) -lcheck build/test/check_queue.o $(OBJECTS_TEST) -o bin/check_queue
+	@$(LINK.o) $(CHECK_FLAGS) build/test/check_queue.o $(OBJECTS_TEST) -o bin/check_queue
 	@./bin/check_queue
 
 .PHONY: sources
