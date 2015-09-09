@@ -63,11 +63,6 @@ compile: app/main.o $(DEPS)
 	@$(LINK.o) build/app/main.o $(OBJECTS) -o bin/main
 	$(call log-action, "Linking", "bin/main")
 
-app/%.o: app/%.c graph.o
-	@mkdir -p $(shell dirname build/$<)
-	@$(COMPILE.c) $< $(OUTPUT_OPTION)
-	$(call log-compile)
-
 %.o: %.c
 	@mkdir -p $(shell dirname build/$<)
 	@$(COMPILE.c) $< $(OUTPUT_OPTION)
@@ -81,15 +76,11 @@ clean:
 
 .PHONY: check
 check: $(DEPS_TEST) $(DEPS)
-	# @$(LINK.o) -lcheck build/test/check_graph.o $(OBJECTS_TEST) -o bin/check_graph
-	# @./bin/check_graph
+	$(call log-action, "Checking")
+	@$(LINK.o) -lcheck build/test/check_graph.o $(OBJECTS_TEST) -o bin/check_graph
+	@./bin/check_graph
 	@$(LINK.o) -lcheck build/test/check_queue.o $(OBJECTS_TEST) -o bin/check_queue
 	@./bin/check_queue
-
-test/%.o: test/%.c $(DEPS)
-	@mkdir -p $(shell dirname build/$<)
-	@$(COMPILE.c) $< $(OUTPUT_OPTION)
-	$(call log-compile)
 
 .PHONY: sources
 sources:
