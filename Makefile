@@ -81,8 +81,8 @@ clean:
 
 .PHONY: check
 check: $(DEPS_TEST) $(DEPS)
-	@$(LINK.o) -lcheck build/test/check_graph.o $(OBJECTS_TEST) -o bin/check_graph
-	@./bin/check_graph
+	# @$(LINK.o) -lcheck build/test/check_graph.o $(OBJECTS_TEST) -o bin/check_graph
+	# @./bin/check_graph
 	@$(LINK.o) -lcheck build/test/check_queue.o $(OBJECTS_TEST) -o bin/check_queue
 	@./bin/check_queue
 

@@ -14,7 +14,7 @@ END_TEST
 int main(void)
 {
         Suite *s1 = suite_create("Graph");
-        TCase *tc1_1 = tcase_create("Queue");
+        TCase *tc1_1 = tcase_create("graph#test_stdin");
         SRunner *sr = srunner_create(s1);
         int nf;
 
