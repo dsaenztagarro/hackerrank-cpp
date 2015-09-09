@@ -4,9 +4,10 @@
 
 START_TEST(test_stdin)
 {
-       freopen("test/fixtures/test1.txt", "r", stdin);
-       char c = getchar();
-       ck_assert_int_eq(c, '1');
+        char c;
+        freopen("test/fixtures/test1.txt", "r", stdin);
+        c = getchar();
+        ck_assert_int_eq(c, '1');
 }
 END_TEST
 

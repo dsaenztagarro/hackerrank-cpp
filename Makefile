@@ -59,7 +59,7 @@ COMPILE.c = $(CC) $(CFLAGS) $(INCLUDES) -c
 all: compile check
 
 compile: app/main.o $(DEPS)
-	mkdir -p bin
+	@mkdir -p bin
 	@$(LINK.o) build/app/main.o $(OBJECTS) -o bin/main
 	$(call log-action, "Linking", "bin/main")
 
