@@ -8,8 +8,8 @@ OUTPUT_DIR := build
 SOURCES = $(shell find $(LIB_DIR) -name *.c)
 DEPS = $(subst .c,.o, $(SOURCES))
 OBJECTS = $(addprefix $(OUTPUT_DIR)/, $(DEPS))
-TEST = $(shell find $(TEST_DIR)/ -name *.c | sed 's/test\/\///')
-DEPS_TEST = $(subst .c,.o, $(TEST))
+SOURCES_TEST = $(shell find $(TEST_DIR) -name *.c)
+DEPS_TEST = $(subst .c,.o, $(SOURCES_TEST))
 OBJECTS_TEST=$(shell echo "$(OBJECTS)" | sed 's/$(OUTPUT_DIR)\/main\.o//')
 
 # ANSI Escape codes
@@ -81,12 +81,13 @@ clean:
 
 .PHONY: check
 check: $(DEPS_TEST) $(DEPS)
-	@$(LINK.o) -lcheck build/check_graph.o $(OBJECTS_TEST) -o bin/check_graph
+	@$(LINK.o) -lcheck build/test/check_graph.o $(OBJECTS_TEST) -o bin/check_graph
 	@./bin/check_graph
-	@$(LINK.o) -lcheck build/check_queue.o $(OBJECTS_TEST) -o bin/check_queue
+	@$(LINK.o) -lcheck build/test/check_queue.o $(OBJECTS_TEST) -o bin/check_queue
 	@./bin/check_queue
 
-check_%.o: test/check_%.c $(DEPS)
+test/%.o: test/%.c $(DEPS)
+	@mkdir -p $(shell dirname build/$<)
 	@$(COMPILE.c) $< $(OUTPUT_OPTION)
 	$(call log-compile)
 
