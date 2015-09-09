@@ -59,7 +59,8 @@ COMPILE.c = $(CC) $(CFLAGS) $(INCLUDES) -c
 all: compile check
 
 compile: app/main.o $(DEPS)
-	@$(LINK.o) build/app/main.o $(OBJECTS) -o bin/$@
+	mkdir -p bin
+	@$(LINK.o) build/app/main.o $(OBJECTS) -o bin/main
 	$(call log-action, "Linking", "bin/main")
 
 app/%.o: app/%.c graph.o
@@ -74,8 +75,8 @@ app/%.o: app/%.c graph.o
 
 .PHONY: clean
 clean:
-	@$(RM) bin/*
-	@$(RM) build/*
+	@$(RM) bin/
+	@$(RM) build/
 	$(call log-action, "Cleaning")
 
 .PHONY: check
