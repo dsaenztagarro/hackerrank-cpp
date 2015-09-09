@@ -1,6 +1,6 @@
 language: c
-sudo: false
+sudo: required
 install:
-  - apt-get install check
+  - sudo apt-get install check
 script:
   - make
