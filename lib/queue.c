@@ -23,7 +23,7 @@ void enqueue(queue *q, int start)
 
 bool empty_queue(queue *q)
 {
-        return false;
+        return q->first == NULL;
 }
 
 int dequeue(queue *q)
