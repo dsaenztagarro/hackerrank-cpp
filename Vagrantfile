@@ -66,7 +66,9 @@ Vagrant.configure(2) do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get update
+    sudo apt-get install -y make
+    sudo apt-get install -y pkg-config
     sudo apt-get install -y check
-    sudo apt-get install -y cmockery2 cmockery2-devel
+    sudo apt-get install -y libcunit1 libcunit1-doc libcunit1-dev
   SHELL
 end
