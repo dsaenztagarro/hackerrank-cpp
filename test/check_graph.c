@@ -1,30 +1,74 @@
 #include <stdio.h>
-#include <check.h>
+#include <CUnit/Basic.h>
+#include <CUnit/CUnit.h>
 #include "graph.h"
 
-START_TEST(test_stdin)
+/* Pointer to the file used by the tests. */
+static FILE* temp_file = NULL;
+
+/* The suite initialization function.
+ * Opens the temporary file used by the tests.
+ * Returns zero on success, non-zero otherwise.
+ */
+int init_suite1(void)
+{
+   if (NULL == (temp_file = fopen("temp.txt", "w+"))) {
+      return -1;
+   }
+   else {
+      return 0;
+   }
+}
+
+/* The suite cleanup function.
+ * Closes the temporary file used by the tests.
+ * Returns zero on success, non-zero otherwise.
+ */
+int clean_suite1(void)
+{
+   if (0 != fclose(temp_file)) {
+      return -1;
+   }
+   else {
+      temp_file = NULL;
+      return 0;
+   }
+}
+
+void test_stdin(void)
 {
         char c;
         freopen("test/fixtures/test1.txt", "r", stdin);
         c = getchar();
-        ck_assert_int_eq(c, '1');
+        CU_ASSERT(c == '1');
 }
-END_TEST
 
 int main(void)
 {
-        Suite *s1 = suite_create("Graph");
-        TCase *tc1_1 = tcase_create("graph#test_stdin");
-        SRunner *sr = srunner_create(s1);
-        int nf;
+        CU_pSuite pSuite = NULL;
 
-        suite_add_tcase(s1, tc1_1);
-        tcase_add_test(tc1_1, test_stdin);
+        /* initialize the CUnit test registry */
+        if (CUE_SUCCESS != CU_initialize_registry())
+                return CU_get_error();
 
-        srunner_run_all(sr, CK_ENV);
-        nf = srunner_ntests_failed(sr);
-        srunner_free(sr);
+        /* add a suite to the registry */
+        pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+        if (NULL == pSuite) {
+                CU_cleanup_registry();
+                return CU_get_error();
+        }
 
-        return nf == 0 ? 0 : 1;
-        return 0;
+        /* add the tests to the suite */
+        /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+        if (NULL == CU_add_test(pSuite, "test of test_stdin()", test_stdin))
+        {
+                CU_cleanup_registry();
+                return CU_get_error();
+        }
+
+        /* Run all tests using the CUnit Basic interface */
+        CU_basic_set_mode(CU_BRM_VERBOSE);
+        CU_basic_run_tests();
+        CU_cleanup_registry();
+        return CU_get_error();
 }

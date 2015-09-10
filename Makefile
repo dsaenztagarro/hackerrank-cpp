@@ -12,7 +12,7 @@ SOURCES_TEST = $(shell find $(TEST_DIR) -name *.c)
 DEPS_TEST = $(subst .c,.o, $(SOURCES_TEST))
 OBJECTS_TEST=$(shell echo "$(OBJECTS)" | sed 's/$(OUTPUT_DIR)\/main\.o//')
 
-TESTUNIT_FLAGS = $(shell pkg-config --cflags --libs cmockery2)
+TESTUNIT_FLAGS = $(shell pkg-config --cflags cunit)
 
 # ANSI Escape codes
 NO_COLOR=\033[0m
@@ -64,6 +64,11 @@ compile: app/main.o $(DEPS)
 	@mkdir -p bin
 	@$(LINK.o) build/app/main.o $(OBJECTS) -o bin/main
 	$(call log-action, "Linking", "bin/main")
+
+test/%.o: test/%.c
+	@mkdir -p $(shell dirname build/$<)
+	$(COMPILE.c) $(TESTUNIT_FLAGS) $< $(OUTPUT_OPTION)
+	$(call log-compile)
 
 %.o: %.c
 	@mkdir -p $(shell dirname build/$<)
