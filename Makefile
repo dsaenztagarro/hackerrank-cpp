@@ -12,7 +12,7 @@ SOURCES_TEST = $(shell find $(TEST_DIR) -name *.c)
 DEPS_TEST = $(subst .c,.o, $(SOURCES_TEST))
 OBJECTS_TEST=$(shell echo "$(OBJECTS)" | sed 's/$(OUTPUT_DIR)\/main\.o//')
 
-TESTUNIT_FLAGS = $(shell pkg-config --cflags cunit)
+TESTUNIT_FLAGS = $(shell pkg-config --cflags --libs cunit)
 
 # ANSI Escape codes
 NO_COLOR=\033[0m
@@ -84,10 +84,10 @@ clean:
 .PHONY: check
 check: $(DEPS_TEST) $(DEPS)
 	$(call log-action, "Checking")
-	$(LINK.o) $(TESTUNIT_FLAGS) build/test/check_graph.o $(OBJECTS_TEST) -o bin/check_graph
+	$(LINK.o) build/test/check_graph.o $(OBJECTS_TEST) -o bin/check_graph -lcunit
 	./bin/check_graph
-	@$(LINK.o) $(TESTUNIT_FLAGS) build/test/check_queue.o $(OBJECTS_TEST) -o bin/check_queue
-	@./bin/check_queue
+	$(LINK.o) build/test/check_queue.o $(OBJECTS_TEST) -o bin/check_queue -lcunit
+	./bin/check_queue
 
 .PHONY: sources
 sources:

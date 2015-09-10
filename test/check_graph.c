@@ -12,12 +12,7 @@ static FILE* temp_file = NULL;
  */
 int init_suite1(void)
 {
-   if (NULL == (temp_file = fopen("temp.txt", "w+"))) {
-      return -1;
-   }
-   else {
-      return 0;
-   }
+        return 0;
 }
 
 /* The suite cleanup function.
@@ -26,13 +21,7 @@ int init_suite1(void)
  */
 int clean_suite1(void)
 {
-   if (0 != fclose(temp_file)) {
-      return -1;
-   }
-   else {
-      temp_file = NULL;
-      return 0;
-   }
+        return 0;
 }
 
 void test_stdin(void)
