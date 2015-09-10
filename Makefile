@@ -79,8 +79,8 @@ clean:
 .PHONY: check
 check: $(DEPS_TEST) $(DEPS)
 	$(call log-action, "Checking")
-	$(LINK.o) build/test/check_graph.o $(OBJECTS_TEST) -o bin/check_graph $(CHECK_FLAGS)
-	./bin/check_graph
+	@$(LINK.o) build/test/check_graph.o $(OBJECTS_TEST) -o bin/check_graph $(CHECK_FLAGS)
+	@./bin/check_graph
 	@$(LINK.o) build/test/check_queue.o $(OBJECTS_TEST) -o bin/check_queue $(CHECK_FLAGS)
 	@./bin/check_queue
 

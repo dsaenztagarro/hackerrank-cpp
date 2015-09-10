@@ -20,8 +20,8 @@ Queueptr init_queue_with(int *items)
 START_TEST(test_init_queue)
 {
         queue *qptr = init_queue_with(NULL);
-        ck_assert_ptr_eq(qptr->first, NULL);
-        ck_assert_ptr_eq(qptr->last, NULL);
+        ck_assert_int_eq(qptr->first == NULL, 1);
+        ck_assert_int_eq(qptr->last == NULL, 1);
 }
 END_TEST
 
