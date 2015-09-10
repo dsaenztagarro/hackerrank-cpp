@@ -81,6 +81,15 @@ void test_non_empty_queue(void)
         CU_ASSERT(0 == empty_queue(qptr));
 }
 
+void test_stdin(void)
+{
+        char c;
+        freopen("test/fixtures/test1.txt", "r", stdin);
+        c = getchar();
+        CU_ASSERT(c == '1');
+}
+
+
 int main(void)
 {
         CU_pSuite pSuite = NULL;
@@ -96,13 +105,12 @@ int main(void)
                 return CU_get_error();
         }
 
-        /* add the tests to the suite */
         if ((NULL == CU_add_test(pSuite, "test of init_queue()", test_init_queue)) ||
-                (NULL == CU_add_test(pSuite, "test empty of enqueue()", test_enqueue_empty_queue)) ||
-                (NULL == CU_add_test(pSuite, "test non empty of enqueue()", test_enqueue_non_empty_queue)) ||
-                (NULL == CU_add_test(pSuite, "test of dequeue()", test_dequeue)) ||
-                (NULL == CU_add_test(pSuite, "test of empty_queue()", test_empty_queue)) ||
-                (NULL == CU_add_test(pSuite, "test of empty_queue()", test_non_empty_queue)))
+                (NULL == CU_add_test(pSuite, "test empty # enqueue()", test_enqueue_empty_queue)) ||
+                (NULL == CU_add_test(pSuite, "test non empty # enqueue()", test_enqueue_non_empty_queue)) ||
+                (NULL == CU_add_test(pSuite, "test # dequeue()", test_dequeue)) ||
+                (NULL == CU_add_test(pSuite, "test empty # empty_queue()", test_empty_queue)) ||
+                (NULL == CU_add_test(pSuite, "test non empty # empty_queue()", test_non_empty_queue)))
         {
                 CU_cleanup_registry();
                 return CU_get_error();
