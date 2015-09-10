@@ -11,20 +11,11 @@ START_TEST(test_stdin)
 }
 END_TEST
 
-int main(void)
+Suite * make_graph_suite(void)
 {
         Suite *s1 = suite_create("Graph");
         TCase *tc1_1 = tcase_create("graph#test_stdin");
-        SRunner *sr = srunner_create(s1);
-        int nf;
-
         suite_add_tcase(s1, tc1_1);
         tcase_add_test(tc1_1, test_stdin);
-
-        srunner_run_all(sr, CK_ENV);
-        nf = srunner_ntests_failed(sr);
-        srunner_free(sr);
-
-        return nf == 0 ? 0 : 1;
-        return 0;
+        return s1;
 }

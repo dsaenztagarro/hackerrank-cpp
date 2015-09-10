@@ -77,12 +77,10 @@ clean:
 	$(call log-action, "Cleaning")
 
 .PHONY: check
-check: $(DEPS_TEST) $(DEPS)
+check: app/check_all.o $(DEPS_TEST) compile
 	$(call log-action, "Checking")
-	@$(LINK.o) build/test/check_graph.o $(OBJECTS_TEST) -o bin/check_graph $(CHECK_FLAGS)
-	@./bin/check_graph
-	@$(LINK.o) build/test/check_queue.o $(OBJECTS_TEST) -o bin/check_queue $(CHECK_FLAGS)
-	@./bin/check_queue
+	@$(LINK.o) build/app/check_all.o build/test/check_graph.o build/test/check_queue.o $(OBJECTS_TEST) -o bin/check_all $(CHECK_FLAGS)
+	@./bin/check_all
 
 .PHONY: sources
 sources:

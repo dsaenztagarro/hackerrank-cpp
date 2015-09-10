@@ -68,15 +68,13 @@ START_TEST(test_non_empty_queue)
 }
 END_TEST
 
-int main(void)
+Suite * make_queue_suite(void)
 {
         Suite *s1 = suite_create("Queue");
         TCase *tc1_1 = tcase_create("queue#init_queue");
         TCase *tc1_2 = tcase_create("queue#enqueue");
         TCase *tc1_3 = tcase_create("queue#dequeue");
         TCase *tc1_4 = tcase_create("queue#empty_queue");
-        SRunner *sr = srunner_create(s1);
-        int nf;
 
         suite_add_tcase(s1, tc1_1);
         suite_add_tcase(s1, tc1_2);
@@ -90,10 +88,5 @@ int main(void)
         tcase_add_test(tc1_4, test_empty_queue);
         tcase_add_test(tc1_4, test_non_empty_queue);
 
-        srunner_run_all(sr, CK_ENV);
-        nf = srunner_ntests_failed(sr);
-        srunner_free(sr);
-
-        return nf == 0 ? 0 : 1;
-        return 0;
+        return s1;
 }
