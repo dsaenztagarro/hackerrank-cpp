@@ -38,12 +38,13 @@ void run_testcase()
 {
     int start_point;
     graph g;
-    graph *graph_ptr = &g;
+    graph *graphptr = &g;
 
-    initialize_graph(graph_ptr, false);
-    initialize_search(graph_ptr);
+    initialize_graph(graphptr, false);
+    read_graph(graphptr, false);
+    initialize_search(graphptr);
 
     scanf("%d", &start_point);
 
-    bfs(graph_ptr, start_point);
+    bfs(graphptr, start_point);
 }

@@ -19,20 +19,29 @@
 #include <check.h>
 #include "graph.h"
 
-START_TEST(test_stdin)
+START_TEST(test_read_graph)
 {
-        char c;
+        graph g;
+        Graphptr gptr = &g;
+        Edgenodeptr edgenodeptr;
         freopen("test/fixtures/test1.txt", "r", stdin);
-        c = getchar();
-        ck_assert_int_eq(c, '1');
+        initialize_graph(gptr, false);
+        read_graph(gptr, false);
+
+        edgenodeptr = gptr->edges[1];
+        ck_assert_int_eq(edgenodeptr->y, 3);
+        edgenodeptr = edgenodeptr->next;
+        ck_assert_int_eq(edgenodeptr->y, 2);
+        edgenodeptr = edgenodeptr->next;
+        ck_assert_int_eq(edgenodeptr == NULL, 1);
 }
 END_TEST
 
 Suite * make_graph_suite(void)
 {
         Suite *s1 = suite_create("Graph");
-        TCase *tc1_1 = tcase_create("graph#test_stdin");
+        TCase *tc1_1 = tcase_create("graph#test_read_graph");
         suite_add_tcase(s1, tc1_1);
-        tcase_add_test(tc1_1, test_stdin);
+        tcase_add_test(tc1_1, test_read_graph);
         return s1;
 }
