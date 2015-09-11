@@ -28,7 +28,9 @@ START_TEST(test_read_graph)
         initialize_graph(gptr, false);
         read_graph(gptr, false);
 
-        edgenodeptr = gptr->edges[1];
+        ck_assert_int_eq(g.nvertices, 4);
+
+        edgenodeptr = g.edges[1];
         ck_assert_int_eq(edgenodeptr->y, 3);
         edgenodeptr = edgenodeptr->next;
         ck_assert_int_eq(edgenodeptr->y, 2);
