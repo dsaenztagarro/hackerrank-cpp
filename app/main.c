@@ -28,6 +28,7 @@ int main()
     int i;
     int num_testcases;
     scanf("%d", &num_testcases);
+    printf("num_testcases %d\n", num_testcases);
     for (i = 0; i < num_testcases; i++) {
         run_testcase();
     }
@@ -45,6 +46,7 @@ void run_testcase()
     initialize_search(graphptr);
 
     scanf("%d", &start_point);
+    printf("start point %d\n", start_point);
 
     bfs(graphptr, start_point);
 }

@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/dsaenztagarro/hackerrank-cpp.svg?branch=master)](https://travis-ci.org/dsaenztagarro/hackerrank-cpp)
 # hackerrank-cpp
 
-Run command: `./bin/compile < test/fixtures/test1.txt`
+Run command: `./bin/compile < examples/stdin1.txt`
 
 To show the script to be executed
 
