@@ -13,6 +13,7 @@ DEPS_TEST = $(subst .c,.o, $(SOURCES_TEST))
 OBJECTS_TEST=$(shell echo "$(OBJECTS)" | sed 's/$(OUTPUT_DIR)\/main\.o//')
 
 CHECK_FLAGS = $(shell pkg-config --cflags --libs check)
+DEBUG_FLAGS = -O0 -g
 
 # ANSI Escape codes
 NO_COLOR=\033[0m
@@ -54,7 +55,7 @@ CFLAGS = $(COMPILE_FLAGS) $(LANGUAGE_FLAGS)
 INCLUDES = -I /usr/include -I include
 TEST_INCLUDES = -lcheck
 
-LINK.o = $(CC) $(COMPILE_FLAGS) $(INCLUDES)
+LINK.o = $(CC) $(COMPILE_FLAGS) $(INCLUDES) $(DEBUG_FLAGS)
 COMPILE.c = $(CC) $(CFLAGS) $(INCLUDES) -c
 
 .PHONY: all

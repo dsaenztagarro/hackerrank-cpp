@@ -58,7 +58,7 @@ void bfs(graph *g, int start)
             if ((processed[y] == false) || g->directed)
                 process_edge(v, y);
             if (discovered[y] == false) {
-                enqueue(&q, v);
+                enqueue(&q, y);
                 discovered[y] = true;
                 parent[y] = v;
             }
