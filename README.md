@@ -7,6 +7,14 @@ To show the script to be executed
 
 `make --just-print`
 
+Debugging
+---------
+
+```
+gdb ./bin/main
+run < examples/stdin1.txt
+```
+
 Documentation
 -------------
 

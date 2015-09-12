@@ -16,12 +16,16 @@
  */
 
 #include<stdio.h>
+#include "main.h"
 #include "graph.h"
 #include "bfs.h"
 
 void run_testcase();
+void init_distances(int start_point);
+void print_distances(graph * g, int start_point);
 
 graph *gPtr;
+int distances[MAXV + 1];
 
 int main()
 {
@@ -47,6 +51,24 @@ void run_testcase()
 
         scanf("%d", &start_point);
         printf("start point %d\n", start_point);
+        init_distances(start_point);
 
         bfs(graphptr, start_point);
+        print_distances(graphptr, start_point);
+}
+
+void init_distances(int start_point)
+{
+        int i;
+        for (i = 0; i <= MAXV; i++) distances[i] = -1;
+        distances[start_point] = 0;
+}
+
+void print_distances(graph * g, int start_point)
+{
+        int i;
+        for (i = start_point + 1; i <= g->nvertices; i++)
+                printf(" %d", distances[i]);
+        for (i = 1; i < start_point; i++)
+                printf(" %d", distances[i]);
 }
