@@ -23,6 +23,7 @@
 void run_testcase();
 void init_distances(int start_point);
 void print_distances(graph * g, int start_point);
+void print_distances_interval(int start, int end, int start_point, int *first);
 
 graph *gPtr;
 int distances[MAXV + 1];
@@ -66,9 +67,23 @@ void init_distances(int start_point)
 
 void print_distances(graph * g, int start_point)
 {
+        int first = 1;
+        int *firstptr = &first;
+        print_distances_interval(start_point + 1, g->nvertices + 1, start_point, firstptr);
+        print_distances_interval(1, start_point - 1, start_point, firstptr);
+}
+
+void print_distances_interval(int start, int end, int start_point, int *first)
+{
         int i;
-        for (i = start_point + 1; i <= g->nvertices; i++)
-                printf(" %d", distances[i]);
-        for (i = 1; i < start_point; i++)
-                printf(" %d", distances[i]);
+        for (i = start; i < end; i++) {
+                if (i != start_point) {
+                        if (*first) {
+                                printf("%d", distances[i]);
+                                *first = 0;
+                        } else {
+                                printf(" %d", distances[i]);
+                        }
+                }
+        }
 }
