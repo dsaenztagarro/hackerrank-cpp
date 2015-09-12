@@ -71,7 +71,6 @@ void bfs(graph *g, int start)
 
 void process_vertex_early(int v)
 {
-
         printf("processed edge %d\n", v);
 }
 
@@ -84,5 +83,5 @@ void process_vertex_early(int v)
 void process_edge(int x, int y)
 {
         printf("processed edge (%d, %d)\n", x, y);
-        distances[y] = 6; /* distances[x] + 6; */
+        distances[y] = distances[x] + 6;
 }
