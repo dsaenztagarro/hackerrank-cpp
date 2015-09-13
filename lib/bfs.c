@@ -83,5 +83,9 @@ void process_vertex_early(int v)
 void process_edge(int x, int y)
 {
         printf("processed edge (%d, %d)\n", x, y);
-        distances[y] = distances[x] + 6;
+        if (distances[x] >= 0 && distances[y] < 0) {
+                distances[y] = distances[x] + 6;
+        } else if (distances[y] >= 0 && distances[x] < 0) {
+                distances[x] = distances[y] + 6;
+        }
 }
