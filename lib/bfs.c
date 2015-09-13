@@ -21,7 +21,6 @@
 #include "graph.h"
 #include "queue.h"
 
-void process_vertex_early(int v);
 void process_vertex_late(int v);
 void process_edge(int x, int y);
 
@@ -51,7 +50,6 @@ void bfs(graph *g, int start)
         discovered[start] = true;
         while(empty_queue(&q) == false) {
                 v = dequeue(&q);
-                process_vertex_early(v);
                 processed[v] = true;
                 p = g->edges[v];
                 while (p != NULL) {
@@ -65,24 +63,11 @@ void bfs(graph *g, int start)
                         }
                         p = p->next;
                 }
-                /* process_vertex_late(v); */
         }
 }
 
-void process_vertex_early(int v)
-{
-        printf("processed edge %d\n", v);
-}
-
-/*
-   void process_vertex_late(int v)
-   {
-   }
-   */
-
 void process_edge(int x, int y)
 {
-        printf("processed edge (%d, %d)\n", x, y);
         if (distances[x] >= 0 && distances[y] < 0) {
                 distances[y] = distances[x] + 6;
         } else if (distances[y] >= 0 && distances[x] < 0) {
