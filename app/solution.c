@@ -258,4 +258,5 @@ void print_distances(graph * g, int start_point)
                         }
                 }
         }
+        printf("\n");
 }
