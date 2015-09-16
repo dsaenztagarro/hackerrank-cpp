@@ -4,7 +4,7 @@
 #include <stdbool.h>
 
 #define MAXV 1000 /* Maximum number of nodes */
-#define MAXINT 1000 /* Maximum length between two nodes */
+#define MAXINT 350 /* Maximum length between two nodes */
 
 typedef struct edgenode * Edgenodeptr;
 
@@ -26,6 +26,6 @@ typedef struct graph {
 } graph;
 
 void initialize_graph(graph *g, bool directed);
-void read_graph(graph *g, bool directed);
+void read_graph(graph *g, bool directed, bool weighted);
 
 #endif

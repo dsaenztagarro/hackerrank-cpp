@@ -46,7 +46,7 @@ void run_testcase()
         graph *graphptr = &g;
 
         initialize_graph(graphptr, false);
-        read_graph(graphptr, false);
+        read_graph(graphptr, false, false);
         initialize_search(graphptr);
 
         scanf("%d", &start_point);

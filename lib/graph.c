@@ -22,7 +22,7 @@
 
 #include "graph.h"
 
-void insert_edge(graph *graph, int x, int y, bool directed);
+void insert_edge(graph *graph, int x, int y, int weight, bool directed);
 
 void initialize_graph(graph *g, bool directed)
 {
@@ -36,29 +36,34 @@ void initialize_graph(graph *g, bool directed)
     for (i=1; i<=MAXV; i++) g->edges[i] = NULL;
 }
 
-void read_graph(graph *graph, bool directed)
+void read_graph(graph *graph, bool directed, bool weighted)
 {
     int i; /* counter */
     int nedges;
     int x, y; /* vertices in edge (x, y) */
+    int weight = 0; /* weight of edge (x, y) */
 
     initialize_graph(graph, directed);
 
     scanf("%d %d",&(graph->nvertices), &nedges);
 
     for (i=1; i<=nedges; i++) {
-        scanf("%d %d", &x, &y);
-        insert_edge(graph, x, y, directed);
+        if (weighted) {
+                scanf("%d %d %d", &x, &y, &weight);
+        } else {
+                scanf("%d %d", &x, &y);
+        }
+        insert_edge(graph, x, y, weight, directed);
     }
 }
 
-void insert_edge(graph *graph, int x, int y, bool directed)
+void insert_edge(graph *graph, int x, int y, int weight, bool directed)
 {
     edgenode *node;
 
     node = malloc(sizeof(edgenode));
 
-    node->weight = 0;
+    node->weight = weight;
     node->y = y;
     node->next = graph->edges[x];
 
@@ -66,7 +71,7 @@ void insert_edge(graph *graph, int x, int y, bool directed)
     graph->degree[x] ++;
 
     if (directed == false)
-        insert_edge(graph, y, x, true);
+        insert_edge(graph, y, x, weight, true);
     else
         graph->nedges ++;
 }

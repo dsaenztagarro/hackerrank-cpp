@@ -26,7 +26,7 @@ START_TEST(test_read_graph)
         Edgenodeptr edgenodeptr;
         freopen("test/fixtures/test1.txt", "r", stdin);
         initialize_graph(gptr, false);
-        read_graph(gptr, false);
+        read_graph(gptr, false, false);
 
         ck_assert_int_eq(g.nvertices, 4);
 

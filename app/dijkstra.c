@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include<stdio.h>
+#include <stdio.h>
 #include "main.h"
 #include "graph.h"
-#include "bfs.h"
+#include "dijkstra.h"
 
 void run_testcase();
 void init_distances(int start_point);
@@ -46,8 +46,7 @@ void run_testcase()
         graph *graphptr = &g;
 
         initialize_graph(graphptr, false);
-        read_graph(graphptr, false);
-        initialize_search(graphptr);
+        read_graph(graphptr, false, true);
 
         scanf("%d", &start_point);
         init_distances(start_point);
