@@ -1,9 +1,10 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include<stdbool.h>
+#include <stdbool.h>
 
 #define MAXV 1000 /* Maximum number of nodes */
+#define MAXINT 1000 /* Maximum length between two nodes */
 
 typedef struct edgenode * Edgenodeptr;
 

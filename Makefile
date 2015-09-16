@@ -61,10 +61,18 @@ COMPILE.c = $(CC) $(CFLAGS) $(INCLUDES) -c
 .PHONY: all
 all: compile check
 
-compile: app/main.o $(DEPS)
+.PHONY: compile compile_bfs compile_dijkstra
+compile: compile_bfs compile_dijkstra
+
+compile_bfs: app/bfs.o $(DEPS)
 	@mkdir -p bin
-	@$(LINK.o) build/app/main.o $(OBJECTS) -o bin/main
-	$(call log-action, "Linking", "bin/main")
+	@$(LINK.o) build/app/bfs.o $(OBJECTS) -o bin/bfs
+	$(call log-action, "Linking", "bin/bfs")
+
+compile_dijkstra: app/dijkstra.o $(DEPS)
+	@mkdir -p bin
+	@$(LINK.o) build/app/dijkstra.o $(OBJECTS) -o bin/dijkstra
+	$(call log-action, "Linking", "bin/dijkstra")
 
 %.o: %.c
 	@mkdir -p $(shell dirname build/$<)
