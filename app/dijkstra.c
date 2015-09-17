@@ -49,17 +49,9 @@ void run_testcase()
         read_graph(graphptr, false, true);
 
         scanf("%d", &start_point);
-        init_distances(start_point);
 
         dijkstra(graphptr, start_point);
         print_distances(graphptr, start_point);
-}
-
-void init_distances(int start_point)
-{
-        int i;
-        for (i = 0; i <= MAXV; i++) distances[i] = -1;
-        distances[start_point] = 0;
 }
 
 void print_distances(graph * g, int start_point)
