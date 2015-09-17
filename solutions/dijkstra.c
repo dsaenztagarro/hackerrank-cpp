@@ -20,7 +20,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-#define MAXV 1000 /* Maximum number of nodes */
+#define MAXV 3000 /* Maximum number of nodes */
 #define MAXINT 350 /* Maximum length between two nodes */
 
 typedef struct edgenode * Edgenodeptr;
