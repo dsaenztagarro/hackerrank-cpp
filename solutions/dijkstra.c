@@ -292,13 +292,3 @@ void print_distance(int dist, bool first)
                 printf(" %d", dist);
         }
 }
-void print_distance(int dist, bool first)
-{
-        dist = (dist == MAXINT)? -1 : dist;
-
-        if (first) {
-                printf("%d", dist);
-        } else {
-                printf(" %d", dist);
-        }
-}
