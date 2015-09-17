@@ -71,6 +71,7 @@ void run_testcase();
 void init_distances(int start_point);
 void print_distances(graph * g, int start_point);
 void print_distances_interval(int start, int end, int start_point, int *first);
+void print_distance(int dist, bool first);
 void process_edge(int x, int y);
 void bfs(graph *g, int start);
 
@@ -274,13 +275,30 @@ void print_distances(graph * g, int start_point)
         int first = 1;
         for (i = 1; i <= g->nvertices; i++) {
                 if (i != start_point) {
-                        if (first) {
-                                printf("%d", distances[i]);
-                                first = 0;
-                        } else {
-                                printf(" %d", distances[i]);
-                        }
+                        print_distance(distances[i], first);
+                        first = 0;
                 }
         }
         printf("\n");
+}
+
+void print_distance(int dist, bool first)
+{
+        dist = (dist == MAXINT)? -1 : dist;
+
+        if (first) {
+                printf("%d", dist);
+        } else {
+                printf(" %d", dist);
+        }
+}
+void print_distance(int dist, bool first)
+{
+        dist = (dist == MAXINT)? -1 : dist;
+
+        if (first) {
+                printf("%d", dist);
+        } else {
+                printf(" %d", dist);
+        }
 }
